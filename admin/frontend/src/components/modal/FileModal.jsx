@@ -14,7 +14,7 @@ const FileUploadModal = ({ open, onClose, onFileUpload }) => {
     formData.append('file', fileList[0].blobFile);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/client_core/uploadfile`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/client/uploadfile`, {
         method: 'POST',
         body: formData,
       });
