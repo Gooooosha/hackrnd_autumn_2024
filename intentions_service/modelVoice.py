@@ -186,7 +186,7 @@ class IntentRecognizer:
 
     def recognize_speech_from_audio(self, wav_path):
         vosk.SetLogLevel(True)
-        model = vosk.Model("model_vosk")
+        model = vosk.Model("intentions_service/model_vosk")
 
         wf = wave.open(wav_path, "rb")
 
