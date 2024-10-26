@@ -14,8 +14,8 @@ services:
 #      - redis
     environment:
       - PYTHONUNBUFFERED=1
-    networks:
-      - web
+#    networks:
+#      - web
 
 #  admin:
 #    build:
