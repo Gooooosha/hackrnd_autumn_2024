@@ -12,7 +12,7 @@ class ClientBase(BaseModel):
     email: EmailStr
     address: str
     tg_id: str
-    
+
 
 class ClientCreate(ClientBase):
     pass

@@ -10,6 +10,7 @@ class IntentionBase(BaseModel):
     mail_id: int
 
 
+
 class IntentionCreate(IntentionBase):
     pass
 

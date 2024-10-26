@@ -17,12 +17,14 @@ class ClientRepository:
 
     async def get_contract_number_by_tg_id(self, tg_id: str) -> Optional[str]:
         result = await self.session.execute(
-            select(Client).filter_by(tg_id = tg_id)
+            select(Client).filter_by(tg_id=tg_id)
         )
         record = result.scalars().one_or_none()
         return record
 
-    async def get_client_by_contract_number(self, contract_number: str) -> Optional[ClientSchema]:
+    async def get_client_by_contract_number(self,
+                                            contract_number: str
+                                            ) -> Optional[ClientSchema]:
         result = await self.session.execute(
             select(Client).filter_by(contract_number=contract_number)
         )
@@ -47,7 +49,7 @@ class ClientRepository:
         )
         records = result.scalars().all()
 
-        return [ClientSchema.model_validate(record).model_dump() for record in records]
+        return [ClientSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[ClientSchema]:
         result = await self.session.execute(select(Client).filter_by(id=id))
@@ -57,7 +59,9 @@ class ClientRepository:
 
         return None
 
-    async def update(self, id: int, model_update: ClientUpdate) -> Optional[ClientSchema]:
+    async def update(self,
+                     id: int,
+                     model_update: ClientUpdate) -> Optional[ClientSchema]:
         await self.session.execute(
             update(Client).where(Client.id == id)
             .values(**model_update)
@@ -71,5 +75,5 @@ class ClientRepository:
             await self.session.execute(delete(Client).where(Client.id == id))
             await self.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             return False

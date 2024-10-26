@@ -17,9 +17,12 @@ class EditorRepository:
         result = await self.session.execute(select(Editor).filter_by(login=login))
         record = result.scalars().one_or_none()
         return record is not None
-    
+
     async def check_password(self, login: str, password: str) -> bool:
-        result = await self.session.execute(select(Editor).filter_by(login=login, password=password))
+        result = await self.session.execute(
+            select(Editor).filter_by(login=login,
+                                     password=password)
+        )
         record = result.scalars().one_or_none()
         if record:
             return EditorSchema.model_validate(record).model_dump()
@@ -39,8 +42,7 @@ class EditorRepository:
             select(Editor)
         )
         records = result.scalars().all()
-
-        return [EditorSchema.model_validate(record).model_dump() for record in records]
+        return [EditorSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[EditorSchema]:
         result = await self.session.execute(select(Editor).filter_by(id=id))
@@ -63,8 +65,10 @@ class EditorRepository:
 
     async def delete(self, id: int) -> bool:
         try:
-            await self.session.execute(delete(Editor).where(Editor.id == id))
+            await self.session.execute(
+                delete(Editor).where(Editor.id == id)
+            )
             await self.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             return False

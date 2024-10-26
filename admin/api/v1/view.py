@@ -11,5 +11,5 @@ async def auth(req: Request):
 
 
 @router.get("/database")
-async def auth(req: Request):
+async def database(req: Request):
     return templates.TemplateResponse('index.html', {'request': req})
