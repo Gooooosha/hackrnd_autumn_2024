@@ -21,6 +21,9 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/hackathon-undefined.ru/fullchain.pem:/etc/letsencrypt/live/hackathon-undefined.ru/fullchain.pem
+      - /etc/letsencrypt/live/hackathon-undefined.ru/privkey.pem:/etc/letsencrypt/live/hackathon-undefined.ru/privkey.pem
+
 
 networks:
   web:
