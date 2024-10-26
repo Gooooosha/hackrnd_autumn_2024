@@ -13,7 +13,7 @@ from aiogram.webhook.aiohttp_server import (SimpleRequestHandler,
                                             setup_application)
 
 from bot_service.keyboards.users.inline import inline_kb_client_menu
-from intentions_service.modelVoice import get_intent_by_text
+from intentions_service.modelVoice import get_intent_by_text, get_intent_by_voice
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
@@ -37,9 +37,11 @@ async def voice_message_handler(message: Message, bot: Bot) -> None:
     voice = message.voice
     voice_file_info = await bot.get_file(voice.file_id)
     # voice_ogg = io.BytesIO()
+    path = "intentions_service/voices"
     await bot.download_file(voice_file_info.file_path,
-                            f"{voice_file_info.file_unique_id}.wav")
-    await message.answer(voice_file_info.file_path)
+                            f"{path}/{voice_file_info.file_unique_id}.wav")
+    intent = get_intent_by_voice(f"{voice_file_info.file_unique_id}")
+    await message.answer(intent)
     # voice_mp3_path = f"voice-{voice.file_unique_id}.wav"
     # AudioSegment.from_file(voice_ogg, format="ogg").export(
     #     voice_mp3_path, format="wav"
