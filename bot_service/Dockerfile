@@ -1,10 +1,12 @@
-FROM python:3.12
+FROM python:3.9.6
 
 COPY requirements.txt /app/requirements.txt
 
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY ./bot_service /app
+
+COPY ./intentions_service /app
 
 #COPY ../shared /app/shared
 

@@ -14,8 +14,10 @@ import wave
 import vosk
 import json
 
+
 class IntentRecognizer:
-    def __init__(self, model_path='model.keras', vectorizer_path='vectorizer.pkl', label_encoder_path='label_encoder.pkl'):
+    def __init__(self, model_path='model.keras', vectorizer_path='vectorizer.pkl',
+                 label_encoder_path='label_encoder.pkl'):
         self.model_path = model_path
         self.vectorizer_path = vectorizer_path
         self.label_encoder_path = label_encoder_path
@@ -89,7 +91,7 @@ class IntentRecognizer:
         # Create feature vectors using TF-IDF
         X = self.vectorizer.fit_transform(texts).toarray()
         joblib.dump(self.vectorizer, self.vectorizer_path)  # Save the vectorizer
-        
+
         y = self.label_encoder.fit_transform(intents)
         joblib.dump(self.label_encoder, self.label_encoder_path)  # Save the label encoder
 
@@ -97,7 +99,7 @@ class IntentRecognizer:
 
     def _train_model(self):
         X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
-        
+
         model = Sequential([
             Dense(128, input_shape=(self.X.shape[1],), activation='relu'),
             Dropout(0.5),
@@ -146,7 +148,7 @@ class IntentRecognizer:
         intent = self.predict_intent(text)
         processed_text = self._preprocess_text(text)
         text_vector = self.vectorizer.transform([processed_text]).toarray()
-        
+
         prediction = self.model.predict(text_vector)
         predicted_probability = np.max(prediction)
 
@@ -166,14 +168,7 @@ class IntentRecognizer:
 
         return intent, parameters
 
-    def recognize_speech_from_audio(self, ogg_path):
-        audio = AudioSegment.from_ogg(ogg_path)
-        wav_path = "converted.wav"
-        audio = audio.set_channels(1)
-        audio = audio.set_sample_width(2)
-        audio = audio.set_frame_rate(16000)
-        audio.export(wav_path, format="wav")
-
+    def recognize_speech_from_audio(self, wav_path):
         vosk.SetLogLevel(True)
         model = vosk.Model("model_vosk")
 
@@ -197,20 +192,16 @@ class IntentRecognizer:
         print("\nРаспознанный текст:", result_text)
         return result_text
 
-if __name__ == "__main__":
-    recognizer = IntentRecognizer()
 
-    while True:
-        user_input = input("Введите текст (или 'c' для выхода, или 'a' для ввода аудио): ")
-        if user_input == 'c':
-            break
-        elif user_input == 'a':
-            ogg_path = "test2.ogg"
-            recognized_text = recognizer.recognize_speech_from_audio(ogg_path)
-            intent, params = recognizer.recognize_intent_with_params(recognized_text)
-            print("Распознанное намерение:", intent)
-            print("Параметры:", params)
-        else:
-            intent, params = recognizer.recognize_intent_with_params(user_input)
-            print("Распознанное намерение:", intent)
-            print("Параметры:", params)
+def get_intent_by_voice():
+    recognizer = IntentRecognizer()
+    wav_path = "test2.ogg"
+    recognized_text = recognizer.recognize_speech_from_audio(wav_path)
+    intent, params = recognizer.recognize_intent_with_params(recognized_text)
+    return intent
+
+
+def get_intent_by_text(text: str):
+    recognizer = IntentRecognizer()
+    intent, params = recognizer.recognize_intent_with_params(text)
+    return intent
