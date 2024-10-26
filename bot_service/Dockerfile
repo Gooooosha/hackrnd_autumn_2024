@@ -12,4 +12,5 @@ COPY ./intentions_service /app
 
 WORKDIR /app
 
-CMD ["python", "-m", "bot_service"]
+CMD python -m spacy download ru_core_news_sm && python -m bot_service
+
