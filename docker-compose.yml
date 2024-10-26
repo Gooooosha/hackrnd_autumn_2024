@@ -9,11 +9,28 @@ services:
       dockerfile: bot_service/Dockerfile
     volumes:
       - .:/app
-    #depends_on:
-    #  - db
-    #  - redis
-    #environment:
-    #  - PYTHONUNBUFFERED=1
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - web
+
+  admin:
+    build:
+      context: .
+      dockerfile: admin/Dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+      - ./shared:/app/shared
+    depends_on:
+      - postgres
+    networks:
+      - web
 
   nginx:
     image: nginx:stable-alpine
