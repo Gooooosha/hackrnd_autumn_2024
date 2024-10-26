@@ -28,15 +28,15 @@ class PurposeRepository:
         result = await self.session.execute(
             select(Purpose)
         )
-        clients = result.scalars().all()
+        records = result.scalars().all()
 
-        return [PurposeSchema.model_validate(client).model_dump() for client in clients]
+        return [PurposeSchema.model_validate(record).model_dump() for record in records]
 
     async def get_by_id(self, id: int) -> Optional[PurposeSchema]:
         result = await self.session.execute(select(Purpose).filter_by(id=id))
-        client = result.scalars().one_or_none()
-        if client:
-            return PurposeSchema.model_validate(client).model_dump()
+        record = result.scalars().one_or_none()
+        if record:
+            return PurposeSchema.model_validate(record).model_dump()
 
         return None
 

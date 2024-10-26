@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { CustomTable } from "../../pages/CustomTable";
 import { get_table_info } from '../../api/get_info';
-import { created_at, updated_at } from '../../utils/time_mixin';
+import {created_at, updated_at} from '../../utils/time_mixin';
 
 
 const columnsConfig = [
   { key: 'id', label: 'Id', width: 60, align: 'center', fixed: true },
-  { key: 'keyword', label: 'Ключевое слово', width: 200, type: "varchar"},
-  { key: 'purpose', label: 'Намерение', width: 200, type: "varchar"},
-  { key: 'reply', label: 'Ответ', width: 500, type: "varchar"},
   { key: 'mail', label: 'Почта', width: 200, type: "varchar"},
 ];
 
 columnsConfig.push(created_at);
 columnsConfig.push(updated_at);
 
-const Intention = () => {
+const Mail = () => {
   const [data, setData] = useState([]);
-  const tablename = 'intention';
+  const tablename = 'mail';
   
   useEffect(() => {
     const fetchData = async () => {
@@ -26,12 +23,7 @@ const Intention = () => {
         const jsonData = [
           {
             id: 1,
-            keyword: 'тариф',
-            purpose: 'Намерение для тарифа',
-            reply: 'Ответ для тарифа',
-            mail: 'Почта для тарифа',
-            created_at: '2023-01-01T00:00:00',
-            updated_at: '2023-01-01T00:00:00'
+            mail: 'fdsfkm@mail.ru',
           }
         ]   
         setData(jsonData);
@@ -56,4 +48,4 @@ const Intention = () => {
   );
 };
 
-export default Intention;
+export default Mail;

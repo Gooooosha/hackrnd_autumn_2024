@@ -5,6 +5,7 @@ import Editor from '../../tables/Editor';
 import Purpose from '../../tables/Purpose';
 import Reply from '../../tables/Reply';
 import Intention from '../../tables/Intention';
+import Mail from '../../tables/Mail';
 import { useRole } from '../RoleContext';
 import NotFound from '../notfound/view';
 
@@ -26,6 +27,7 @@ function MainLayout() {
     { key: 'intention', title: 'Обращения', component: <Intention /> },
     { key: 'purpose', title: 'Намерения', component: <Purpose /> },
     { key: 'reply', title: 'Ответы', component: <Reply /> },
+    { key: 'mail', title: 'Почта', component: <Mail /> },
   ];
 
   const tabs = role === 'admin' ? adminTabs : editorTabs;

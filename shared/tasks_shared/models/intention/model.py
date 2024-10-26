@@ -11,6 +11,7 @@ class Intention(Base, TimestampMixin):
     keyword: Mapped[str] = mapped_column(nullable=False)
     purpose_id: Mapped[int] = mapped_column(ForeignKey("purposes.id", ondelete="cascade"))
     reply_id: Mapped[int] = mapped_column(ForeignKey("replies.id", ondelete="cascade"))
+    mail_id: Mapped[int] = mapped_column(ForeignKey("mails.id", ondelete="cascade"))
 
     class Config:
         orm_mode = True

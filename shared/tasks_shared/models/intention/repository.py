@@ -6,7 +6,8 @@ from tasks_shared.models.intention.model import Intention
 from shared.schemas.intention import (
     IntentionUpdate,
     IntentionCreate,
-    Intention as IntentionSchema)
+    Intention as IntentionSchema,
+    IntentionFull)
 
 
 class IntentionRepository:
@@ -30,13 +31,13 @@ class IntentionRepository:
 
         return [IntentionSchema.model_validate(record).model_dump() for record in records]
 
-    async def get_all_joined(self) -> List[IntentionSchema]:
+    async def get_all_joined(self) -> List[IntentionFull]:
         result = await self.session.execute(
-            select(Intention).join(Intention.purpose_id).join(Intention.reply_id)
+            select(Intention).join(Intention.purpose_id).join(Intention.reply_id).join(Intention.mail_id)  # noqa
         )
         records = result.scalars().all()
 
-        return [IntentionSchema.model_validate(record).model_dump() for record in records]
+        return [IntentionFull.model_validate(record).model_dump() for record in records]
 
     async def get_by_id(self, id: int) -> Optional[IntentionSchema]:
         result = await self.session.execute(select(Intention).filter_by(id=id))
