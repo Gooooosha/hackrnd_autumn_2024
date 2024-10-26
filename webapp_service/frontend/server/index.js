@@ -25,8 +25,8 @@ app.post('/registration', (req, res) => {
     res.status(201).json({message: formArray})
 })
 app.get('/registration', (req, res) => {
-    res.status(200).json(formArray);
-});
+    res.status(200).json(formArray)
+})
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
