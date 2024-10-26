@@ -1,14 +1,13 @@
-import React from 'react';
-import Form from '../components/Form/Form';
+import React, { useState } from "react";
+import SignInForm from "../components/SignInForm";
 
-function SignInPage() {
-
-
-  
+const SignInPage = () => {
+ 
   return (
-      <Form isSignIn={true}/>
-    
+    <>
+     <SignInForm />
+    </>
   );
-}
+};
 
 export default SignInPage;
