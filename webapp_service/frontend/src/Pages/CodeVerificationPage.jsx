@@ -1,28 +1,46 @@
-import React from 'react';
-import Form from '../components/Form/Form';
-import Input from '../components/Input/Input';
-import Button from '../components/Button/Button';
-import { useNavigate } from 'react-router-dom';
-import './styles/Code.css'
+import React, { useState } from "react";
+import Form from "../components/Form/Form";
+import Input from "../components/Input/Input";
+import Button from "../components/Button/Button";
+import "./styles/Code.css";
 
 function CodeVerificationPage() {
-  const navigate = useNavigate();
-  const toHome = () => {
-    navigate('/')
- }
+  const [code, setCode] = useState("");
+  const isValid = /^\d{4}$/.test(code);
+
+  const validateCode = () => {
+    if (isValid) {
+      alert("Код подтвержден");
+    } else {
+      alert("Код должен содержать 4 цифры");
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    if (inputValue.match(/^\d*$/)) {
+      setCode(inputValue);
+    }
+  };
+
   return (
-   <form className='form'>
-     <button className="form__button" type="button" onClick={toHome}>	&lt;- Назад</button>
-    <h1>Подтверждение договора</h1>
-                        <Input
-                           type="text"
-                           className="form__input input"
-                           placeholder="Код подтверждения"
-                           onChange={(e) => setCode(e.target.value)}
-                        />
-                        <Button type="button" onClick={() => alert("Код подтвержден!")}>Подтвердить</Button>
-   </form>
+    <form className="form">
+      <h1>Подтверждение входа</h1>
+      <div className="form__container">
+        <Input
+          type="text"
+          className="form__input input"
+          placeholder="Код подтверждения"
+          value={code}
+          onChange={handleInputChange} 
+        />
+        <Button type="button" onClick={validateCode}>
+          Подтвердить
+        </Button>
+      </div>
+    </form>
   );
 }
 
 export default CodeVerificationPage;
+

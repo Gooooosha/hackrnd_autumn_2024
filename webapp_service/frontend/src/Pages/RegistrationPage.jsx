@@ -1,9 +1,16 @@
-import React from 'react';
-import Form from '../components/Form/Form'
-function RegistrationPage() {
+import React, { useState } from "react";
+import RegistrationForm from "../components/RegistrationForm";
+import MyModal from "../components/MyModal/MyModal";
+
+const RegistrationPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-  <Form isSignIn={false}/>
+    <>
+      <RegistrationForm setModal={setIsModalOpen} />
+      {isModalOpen && <MyModal setVisible={setIsModalOpen} visible={isModalOpen}>Форма отправлена успешно!</MyModal>}
+    </>
   );
-}
+};
 
 export default RegistrationPage;
