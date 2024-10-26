@@ -14,7 +14,7 @@ from aiogram.webhook.aiohttp_server import (SimpleRequestHandler,
                                             setup_application)
 
 from bot_service.keyboards.users.inline import inline_kb_client_menu
-from intentions_service.modelVoice import get_intent_by_text
+#from intentions_service.modelVoice import get_intent_by_text
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
@@ -48,7 +48,8 @@ async def voice_message_handler(message: Message, bot: Bot) -> None:
 
 @router.message(F.text)
 async def echo_handler(message: Message) -> None:
-    intent = get_intent_by_text(message.text)
+    #intent = get_intent_by_text(message.text)
+    intent = message.text
     await message.answer(text=intent)
 
 
