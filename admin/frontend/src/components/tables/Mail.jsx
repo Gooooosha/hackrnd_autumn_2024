@@ -24,6 +24,8 @@ const Mail = () => {
           {
             id: 1,
             mail: 'fdsfkm@mail.ru',
+            created_at: '2023-01-01T00:00:00',
+            updated_at: '2023-01-01T00:00:00'
           }
         ]   
         setData(jsonData);
