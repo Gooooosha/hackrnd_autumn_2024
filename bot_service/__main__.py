@@ -13,6 +13,8 @@ from aiogram.utils.markdown import hbold
 from aiogram.webhook.aiohttp_server import (SimpleRequestHandler,
                                             setup_application)
 
+from bot_service.keyboards.users.inline import inline_kb_client_menu
+
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
 WEB_SERVER_HOST = getenv("WEB_SERVER_HOST")
@@ -26,7 +28,8 @@ router = Router()
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello, {hbold(message.from_user.full_name)}!")
+    text, reply_markup = inline_kb_client_menu()
+    await message.answer(text=text, reply_markup=reply_markup)
 
 
 @router.message()
