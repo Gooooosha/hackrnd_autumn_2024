@@ -4,10 +4,10 @@ import os
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
-from config import Settings
+from config import settings
 
 
-SQLALCHEMY_DATABASE_URL = Settings.sql_alchemy_database_url
+SQLALCHEMY_DATABASE_URL = settings.sql_alchemy_database_url
 
 
 async def cook_models():

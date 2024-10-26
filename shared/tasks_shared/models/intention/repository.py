@@ -14,7 +14,7 @@ class IntentionRepository:
         self.session = session
 
     async def add(self, create_model: IntentionCreate) -> IntentionSchema:
-        new_record = Intention(**create_model.model_dump())
+        new_record = Intention(**create_model)
         self.session.add(new_record)
 
         await self.session.commit()
@@ -51,7 +51,7 @@ class IntentionRepository:
                      update_model: IntentionUpdate) -> Optional[IntentionSchema]:
         await self.session.execute(
             update(Intention).where(Intention.id == id)
-            .values(**update_model.model_dump())
+            .values(**update_model)
         )
 
         await self.session.commit()

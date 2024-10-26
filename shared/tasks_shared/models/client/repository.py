@@ -33,7 +33,7 @@ class ClientRepository:
         return None
 
     async def add(self, model_create: ClientCreate) -> ClientSchema:
-        new_record = Client(**model_create.model_dump())
+        new_record = Client(**model_create)
         self.session.add(new_record)
 
         await self.session.commit()
@@ -60,7 +60,7 @@ class ClientRepository:
     async def update(self, id: int, model_update: ClientUpdate) -> Optional[ClientSchema]:
         await self.session.execute(
             update(Client).where(Client.id == id)
-            .values(**model_update.model_dump())
+            .values(**model_update)
         )
 
         await self.session.commit()

@@ -16,7 +16,7 @@ class PurposeRepository:
         self.session = session
 
     async def add(self, create_model: PurposeCreate) -> PurposeSchema:
-        new_record = Purpose(**create_model.model_dump())
+        new_record = Purpose(**create_model)
         self.session.add(new_record)
 
         await self.session.commit()
@@ -43,7 +43,7 @@ class PurposeRepository:
     async def update(self, id: int, update_model: PurposeUpdate) -> Optional[PurposeSchema]:
         await self.session.execute(
             update(Purpose).where(Purpose.id == id)
-            .values(**update_model.model_dump())
+            .values(**update_model)
         )
 
         await self.session.commit()

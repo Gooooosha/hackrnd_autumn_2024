@@ -14,7 +14,7 @@ class ReplyRepository:
         self.session = session
 
     async def add(self, create_model: ReplyCreate) -> ReplySchema:
-        new_record = Reply(**create_model.model_dump())
+        new_record = Reply(**create_model)
         self.session.add(new_record)
 
         await self.session.commit()
@@ -43,7 +43,7 @@ class ReplyRepository:
                      update_model: ReplyUpdate) -> Optional[ReplySchema]:
         await self.session.execute(
             update(Reply).where(Reply.id == id)
-            .values(**update_model.model_dump())
+            .values(**update_model)
         )
 
         await self.session.commit()

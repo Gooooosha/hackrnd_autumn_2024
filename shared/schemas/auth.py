@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 
 
 class Contract(BaseModel):
@@ -7,3 +7,8 @@ class Contract(BaseModel):
 
 class AuthCode(BaseModel):
     code: str = Field(..., min_length=4, max_length=4)
+
+
+class Login(BaseModel):
+    login: str = Field(..., min_length=1, max_length=255)
+    password: str = Field(..., min_length=8, max_length=255)

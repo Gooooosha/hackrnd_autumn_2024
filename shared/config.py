@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     sql_alchemy_database_url: str = f"""{db_type}+{db_driver}://
                                         {db_user}:{db_password}@
                                         {db_host}:{db_port}/{db_name}"""
+    
+    jwt_secret: SecretStr = Field(..., env="JWT_SECRET")
+    jwt_expire: int = Field(..., env="JWT_EXPIRE", default=30)
+    jwt_algorithm: str = Field(..., env="JWT_ALGORITHM", default="HS256")
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
