@@ -1,6 +1,6 @@
 from shared.tasks_shared.database_utils import get_session
 from shared.tasks_shared.models.client.repository import ClientRepository
-from shared.schemas.client import ClientCreate, ClientUpdate, Client as ClientSchema
+from shared.schemas.client import ClientCreate, ClientUpdate
 
 
 async def add(model_create: ClientCreate):
@@ -25,6 +25,7 @@ async def delete(id: int):
     async with get_session() as session:
         repo = ClientRepository(session)
         return await repo.delete(id=id)
+
 
 async def get_all():
     async with get_session() as session:

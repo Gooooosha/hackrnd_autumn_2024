@@ -1,15 +1,19 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from aiogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    WebAppInfo
+)
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
 class InlineConstructor:
 
     @staticmethod
-    def create_kb(
-            text_and_data: list, schema: list = None, button_type: list = None
-    ) -> InlineKeyboardMarkup:
+    def create_kb(text_and_data: list,
+                  schema: list = None,
+                  button_type: list = None) -> InlineKeyboardMarkup:
         kb = InlineKeyboardBuilder()
-        schema = [1 for _ in range(len(text_and_data))] if not schema else schema
+        schema = [1 for _ in range(len(text_and_data))] if not schema else schema  # noqa
 
         if not button_type:
             button_type = []
@@ -33,7 +37,8 @@ class InlineConstructor:
                 elif button_type[i] == "web_app":
                     row_btns = (
                         InlineKeyboardButton(
-                            text=text, web_app=WebAppInfo(url=data, isExpanded=True)
+                            text=text, web_app=WebAppInfo(url=data,
+                                                          isExpanded=True)
                         )
                         for text, data in text_and_data[: schema[i]]
                     )

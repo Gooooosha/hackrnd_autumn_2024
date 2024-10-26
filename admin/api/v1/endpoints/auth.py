@@ -17,7 +17,8 @@ async def login_user(data: Login):
     if user:
         token = await AuthService.get_token(role=user.get('role', 'undefined'))
         return JSONResponse(status_code=200, content={'token': token})
-    return JSONResponse(status_code=404, content={'error': 'Такого пользователя не существует'})
+    return JSONResponse(status_code=404,
+                        content={'error': 'Такого пользователя не существует'})
 
 
 @router.post("/role", response_class=JSONResponse)

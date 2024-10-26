@@ -6,8 +6,8 @@ from config import settings
 
 def create_access_token(data: Dict[str, str]) -> str:
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.jwt_expire)
-    to_encode.update({"exp": expire})
+    time = datetime.now(timezone.utc) + timedelta(minutes=settings.jwt_expire)
+    to_encode.update({"exp": time})
     encoded_jwt = jwt.encode(to_encode,
                              settings.jwt_secret,
                              algorithm=settings.jwt_algorithm)
@@ -20,5 +20,5 @@ def decode_access_token(token: str, key: str) -> str:
             token, settings.jwt_secret, algorithms=[settings.jwt_algorithm]
         )
         return decoded_token.get(key)
-    except:
+    except Exception:
         return {"error": "Bad token"}

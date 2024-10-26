@@ -23,7 +23,7 @@ async def get_all_records():
 
 @router.post("/delete", response_class=JSONResponse)
 async def delete_record(data: DeleteRequest):
-    result =  await delete(id=data.id)
+    result = await delete(id=data.id)
     return {"success": result}
 
 

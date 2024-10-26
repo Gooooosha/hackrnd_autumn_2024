@@ -28,15 +28,15 @@ class IntentionRepository:
         )
         records = result.scalars().all()
 
-        return [IntentionSchema.model_validate(record).model_dump() for record in records]
+        return [IntentionSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_all_joined(self) -> List[IntentionSchema]:
         result = await self.session.execute(
-            select(Intention).join(Intention.purpose_id).join(Intention.reply_id)
+            select(Intention).join(Intention.purpose_id).join(Intention.reply_id)  # noqa: E501
         )
         records = result.scalars().all()
 
-        return [IntentionSchema.model_validate(record).model_dump() for record in records]
+        return [IntentionSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[IntentionSchema]:
         result = await self.session.execute(select(Intention).filter_by(id=id))
@@ -47,8 +47,8 @@ class IntentionRepository:
         return None
 
     async def update(self,
-                     id: int,
-                     update_model: IntentionUpdate) -> Optional[IntentionSchema]:
+                     update_model: IntentionUpdate,
+                     id: int) -> Optional[IntentionSchema]:
         await self.session.execute(
             update(Intention).where(Intention.id == id)
             .values(**update_model)
@@ -59,8 +59,10 @@ class IntentionRepository:
 
     async def delete(self, id: int) -> bool:
         try:
-            await self.session.execute(delete(Intention).where(Intention.id == id))
+            await self.session.execute(
+                delete(Intention).where(Intention.id == id)
+            )
             await self.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             return False

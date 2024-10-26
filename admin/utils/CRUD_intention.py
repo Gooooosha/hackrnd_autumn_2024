@@ -26,6 +26,7 @@ async def delete(id: int):
         repo = IntentionRepository(session)
         return await repo.delete(id=id)
 
+
 async def get_all():
     async with get_session() as session:
         repo = IntentionRepository(session)
