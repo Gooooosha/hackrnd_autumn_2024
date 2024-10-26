@@ -6,7 +6,7 @@ services:
       - 8443:8443
     build:
       context: .
-      dockerfile: bot/Dockerfile
+      dockerfile: bot_service/Dockerfile
     volumes:
       - .:/app
     #depends_on:
