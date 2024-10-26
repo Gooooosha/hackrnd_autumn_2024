@@ -1,18 +1,22 @@
+import os
+
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.models import load_model
-from pymorphy2 import MorphAnalyzer
-import os
+from pymorphy3 import MorphAnalyzer
 import joblib
 import spacy
 import numpy as np
-from pydub import AudioSegment
+# from pydub import AudioSegment
 import wave
 import vosk
 import json
+
 
 
 class IntentRecognizer:
