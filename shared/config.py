@@ -16,11 +16,15 @@ class Settings(BaseSettings):
     redis_host: str = Field(..., env="REDIS_HOST", default="localhost")
     redis_port: int = Field(..., env="REDIS_PORT", default=6379)
     redis_db: int = Field(..., env="REDIS_DB", default=0)
+    redis_user: str = Field(..., env="REDIS_USER")
+    redis_password: SecretStr = Field(..., env="REDIS_PASSWORD")
 
-    redis_storage: str = f"redis://{redis_host}:{redis_port}/{redis_db}"
+    redis_storage: str = f"""redis://{redis_user}:{redis_password}
+                             @{redis_host}:{redis_port}/{redis_db}"""
 
     sql_alchemy_database_url: str = f"""{db_type}+{db_driver}://
-                                        {db_user}:{db_password}@
+                                        {db_user}:
+                                        {db_password.get_secret_value()}@
                                         {db_host}:{db_port}/{db_name}"""
 
     jwt_secret: SecretStr = Field(..., env="JWT_SECRET")
