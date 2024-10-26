@@ -43,6 +43,7 @@ async def on_startup(bot: Bot) -> None:
 
 
 def main() -> None:
+    logging.info("Starting bot")
     dp = Dispatcher()
     dp.include_router(router)
     dp.startup.register(on_startup)
