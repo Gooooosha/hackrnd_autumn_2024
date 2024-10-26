@@ -39,7 +39,7 @@ async def voice_message_handler(message: Message, bot: Bot) -> None:
     # voice_ogg = io.BytesIO()
     path = "intentions_service/voices"
     await bot.download_file(voice_file_info.file_path,
-                            f"{path}/{voice_file_info.file_unique_id}.wav")
+                            f"{path}/{voice_file_info.file_unique_id}.ogg")
     intent = get_intent_by_voice(f"{voice_file_info.file_unique_id}")
     await message.answer(intent)
     # voice_mp3_path = f"voice-{voice.file_unique_id}.wav"
