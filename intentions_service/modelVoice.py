@@ -9,6 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.models import load_model
 from pymorphy3 import MorphAnalyzer
+from pydub import AudioSegment
 import joblib
 import spacy
 import numpy as np
