@@ -26,14 +26,14 @@ class ReplyRepository:
         result = await self.session.execute(
             select(Reply)
         )
-        clients = result.scalars().all()
-        return [ReplySchema.model_validate(client).model_dump() for client in clients]  # noqa: E501
+        records = result.scalars().all()
+        return [ReplySchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[ReplySchema]:
         result = await self.session.execute(select(Reply).filter_by(id=id))
-        client = result.scalars().one_or_none()
-        if client:
-            return ReplySchema.model_validate(client).model_dump()
+        record = result.scalars().one_or_none()
+        if record:
+            return ReplySchema.model_validate(record).model_dump()
 
         return None
 

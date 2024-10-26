@@ -29,7 +29,6 @@ class PurposeRepository:
             select(Purpose)
         )
         records = result.scalars().all()
-
         return [PurposeSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[PurposeSchema]:

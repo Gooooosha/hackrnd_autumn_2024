@@ -14,9 +14,7 @@ class EditorRepository:
         self.session = session
 
     async def is_login_exist(self, login: str) -> bool:
-        result = await self.session.execute(
-            select(Editor).filter_by(login=login)
-        )
+        result = await self.session.execute(select(Editor).filter_by(login=login))
         record = result.scalars().one_or_none()
         return record is not None
 
@@ -44,7 +42,6 @@ class EditorRepository:
             select(Editor)
         )
         records = result.scalars().all()
-
         return [EditorSchema.model_validate(record).model_dump() for record in records]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[EditorSchema]:

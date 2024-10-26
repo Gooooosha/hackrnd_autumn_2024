@@ -9,8 +9,9 @@ class Intention(Base, TimestampMixin):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     keyword: Mapped[str] = mapped_column(nullable=False)
-    purpose_id: Mapped[int] = mapped_column(ForeignKey("purposes.id", ondelete="cascade"))  # noqa: E501
-    reply_id: Mapped[int] = mapped_column(ForeignKey("replies.id", ondelete="cascade"))  # noqa: E501
+    purpose_id: Mapped[int] = mapped_column(ForeignKey("purposes.id", ondelete="cascade"))
+    reply_id: Mapped[int] = mapped_column(ForeignKey("replies.id", ondelete="cascade"))
+    mail_id: Mapped[int] = mapped_column(ForeignKey("mails.id", ondelete="cascade"))
 
     class Config:
         orm_mode = True
