@@ -196,9 +196,9 @@ class IntentRecognizer:
         print("\nРаспознанный текст:", result_text)
         return result_text
 
+recognizer = IntentRecognizer()
 
 def get_intent_by_voice():
-    recognizer = IntentRecognizer()
     wav_path = "test2.ogg"
     recognized_text = recognizer.recognize_speech_from_audio(wav_path)
     intent, params = recognizer.recognize_intent_with_params(recognized_text)
@@ -206,6 +206,5 @@ def get_intent_by_voice():
 
 
 def get_intent_by_text(text: str):
-    recognizer = IntentRecognizer()
     intent, params = recognizer.recognize_intent_with_params(text)
     return intent
