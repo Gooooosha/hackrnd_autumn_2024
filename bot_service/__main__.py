@@ -2,14 +2,14 @@ import logging
 import sys
 from os import getenv
 from dotenv import load_dotenv
+import io
 
 from aiohttp import web
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher, Router, F
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
-from aiogram.utils.markdown import hbold
 from aiogram.webhook.aiohttp_server import (SimpleRequestHandler,
                                             setup_application)
 
@@ -32,12 +32,22 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(text=text, reply_markup=reply_markup)
 
 
-@router.message()
+@router.message(F.voice)
+async def voice_message_handler(message: Message, bot: Bot) -> None:
+    voice = message.voice
+    voice_file_info = await bot.get_file(voice.file_id)
+    # voice_ogg = io.BytesIO()
+    await bot.download_file(voice_file_info.file_path, f"{voice_file_info.file_unique_id}.wav")
+    await message.answer(voice_file_info.file_path)
+    # voice_mp3_path = f"voice-{voice.file_unique_id}.wav"
+    # AudioSegment.from_file(voice_ogg, format="ogg").export(
+    #     voice_mp3_path, format="wav"
+    # )
+
+
+@router.message(F.text)
 async def echo_handler(message: Message) -> None:
-    try:
-        await message.send_copy(chat_id=message.chat.id)
-    except TypeError:
-        await message.answer("Nice try!")
+    await message.answer(text=message.text)
 
 
 async def on_startup(bot: Bot) -> None:
