@@ -16,7 +16,9 @@ class EmailService:
     def get_mail_template(mail_type: MailTypes) -> str:
         return mail_type.value
 
-    def render_email_template(self, template_name: str, context: Dict[str, Any]) -> str:
+    def render_email_template(self,
+                              template_name: str,
+                              context: Dict[str, Any]) -> str:
         template_str = (
             Path(__file__).parent.parent / self.template_dir / template_name
         ).read_text(encoding="utf-8")
@@ -28,7 +30,8 @@ class EmailService:
                         subject: str,
                         context: Dict[str, Any],
                         mail_type: MailTypes) -> bool:
-        html_content = self.render_email_template(template_name=self.get_mail_template(mail_type),
+        template_name = self.get_mail_template(mail_type)
+        html_content = self.render_email_template(template_name=template_name,
                                                   context=context)
 
         message = MIMEMultipart()
@@ -42,7 +45,8 @@ class EmailService:
                            use_tls=settings.use_tls)
         try:
             async with smtp_client:
-                await smtp_client.login(settings.smtp_user, settings.smtp_password.get_secret_value())
+                await smtp_client.login(settings.smtp_user,
+                                        settings.smtp_password.get_secret_value())  # noqa
                 await smtp_client.send_message(message)
                 return True
         except Exception as e:

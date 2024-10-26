@@ -4,15 +4,12 @@ from bot_service.keyboards.keyboard_constructor import InlineConstructor
 
 
 def inline_kb_client_menu():
-    """
-    Parameters:
-    client_id (int) must be provided if user has only one client on his account
-    """
     text = as_line(
-        Bold("Вы вошли в главное меню чат-бота для логистики"), "\n\nВыберите одно из следующих действий:"
+        Bold("Вы вошли в главное меню чат-бота для логистики"),
+        "\n\nВыберите одно из следующих действий:"
     )
     text_and_data = [["Создание накладной", "creating_invoice"],
-                     ["Расчет накладной", f'https://google.com'],
+                     ["Расчет накладной", 'https://google.com'],
                      ["Отслеживание посылки", "tracking_package"],
                      ["Претензии", "claims"],
                      ["Чат с менеджером", "chat_client"],

@@ -27,8 +27,7 @@ class ReplyRepository:
             select(Reply)
         )
         clients = result.scalars().all()
-
-        return [ReplySchema.model_validate(client).model_dump() for client in clients]
+        return [ReplySchema.model_validate(client).model_dump() for client in clients]  # noqa: E501
 
     async def get_by_id(self, id: int) -> Optional[ReplySchema]:
         result = await self.session.execute(select(Reply).filter_by(id=id))
@@ -54,5 +53,5 @@ class ReplyRepository:
             await self.session.execute(delete(Reply).where(Reply.id == id))
             await self.session.commit()
             return True
-        except Exception as e:
+        except Exception:
             return False

@@ -6,10 +6,11 @@ class Logger:
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)
         self.name = name
-
-
         handler = logging.FileHandler(f"{name}.log", mode='a')
-        handler.setFormatter(logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s"))
+        handler.setFormatter(logging.Formatter("""%(name)s
+                                                  %(asctime)s
+                                                  %(levelname)s
+                                                  %(message)s"""))
         self.logger.addHandler(handler)
 
     def debug(self, msg, *args, **kwargs):

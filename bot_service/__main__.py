@@ -2,7 +2,6 @@ import logging
 import sys
 from os import getenv
 from dotenv import load_dotenv
-import io
 
 from aiohttp import web
 from aiogram import Bot, Dispatcher, Router, F
@@ -38,7 +37,9 @@ async def voice_message_handler(message: Message, bot: Bot) -> None:
     voice = message.voice
     voice_file_info = await bot.get_file(voice.file_id)
     # voice_ogg = io.BytesIO()
-    await bot.download_file(voice_file_info.file_path, f"intentions_service/voices/{voice_file_info.file_unique_id}.ogg")
+    path = "intentions_service/voices"
+    await bot.download_file(voice_file_info.file_path,
+                            f"{path}/{voice_file_info.file_unique_id}.wav")
     intent = get_intent_by_voice(f"{voice_file_info.file_unique_id}")
     await message.answer(intent)
     # voice_mp3_path = f"voice-{voice.file_unique_id}.wav"
@@ -50,7 +51,7 @@ async def voice_message_handler(message: Message, bot: Bot) -> None:
 @router.message(F.text)
 async def echo_handler(message: Message) -> None:
     intent = get_intent_by_text(message.text)
-    #intent = message.text
+    # intent = message.text
     await message.answer(text=intent)
 
 

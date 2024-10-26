@@ -7,7 +7,7 @@ class IntentionBase(BaseModel):
     keyword: str
     purpose_id: int
     reply_id: int
-    
+
 
 class IntentionCreate(IntentionBase):
     pass
