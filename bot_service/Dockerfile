@@ -12,5 +12,7 @@ COPY ./intentions_service /app
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y ffmpeg
+
 CMD python -m spacy download ru_core_news_sm && python -m bot_service
 
