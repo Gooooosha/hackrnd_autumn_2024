@@ -1,7 +1,9 @@
-from fastapi import APIRouter
+from io import BytesIO, StringIO
+from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 from shared.schemas.delete_request import DeleteRequest
 from shared.schemas.client import ClientUpdate, ClientCreate
+import pandas as pd
 from utils.CRUD_client import (
     get_all,
     delete,
@@ -35,3 +37,16 @@ async def update_record(data: ClientUpdate):
 @router.post("/add", response_class=JSONResponse)
 async def add_record(data: ClientCreate):
     return await add(model_create=data)
+
+
+@router.post("/uploadfile")
+async def upload_file(file: UploadFile = File(...)):
+    content: bytes = await file.read()
+    if file.filename.endswith('.csv'):
+        df: pd.DataFrame = pd.read_csv(StringIO(content.decode('utf-8')))
+    elif file.filename.endswith('.xlsx') or file.filename.endswith('.xls'):
+        df = pd.read_excel(BytesIO(content))
+    else:
+        raise HTTPException(status_code=400,
+                            detail="Неподдерживаемый формат файла")
+    return await add(df.to_dict(orient='records'))
