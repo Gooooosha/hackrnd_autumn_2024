@@ -185,7 +185,15 @@ class IntentRecognizer:
 
         return intent, parameters
 
-    def recognize_speech_from_audio(self, wav_path):
+    def recognize_speech_from_audio(self, file_name: str):
+        ogg_path = f"intentions_service/voices/{file_name}.ogg"
+        audio = AudioSegment.from_ogg(ogg_path)
+        wav_path = f"intentions_service/voices/{file_name}.wav"
+        audio = audio.set_channels(1)
+        audio = audio.set_sample_width(2)
+        audio = audio.set_frame_rate(16000)
+        audio.export(wav_path, format="wav")
+
         vosk.SetLogLevel(True)
         model = vosk.Model("intentions_service/model_vosk")
 
@@ -212,7 +220,7 @@ class IntentRecognizer:
 recognizer = IntentRecognizer()
 
 def get_intent_by_voice(file_name: str):
-    recognized_text = recognizer.recognize_speech_from_audio(f"intentions_service/voices/{file_name}.wav")
+    recognized_text = recognizer.recognize_speech_from_audio(file_name)
     intent, params = recognizer.recognize_intent_with_params(recognized_text)
     return intent
 
