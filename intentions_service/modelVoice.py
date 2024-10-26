@@ -3,6 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from pymorphy3 import MorphAnalyzer
+from pydub import AudioSegment
 import joblib
 import spacy
 import numpy as np
