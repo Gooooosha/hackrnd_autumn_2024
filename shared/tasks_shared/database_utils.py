@@ -4,18 +4,10 @@ import os
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
+from config import Settings
 
 
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "password")
-DB_NAME = os.getenv("DB_NAME", "postgres")
-
-SQLALCHEMY_DATABASE_URL = ("postgresql+asyncpg://"
-                           f"{DB_USER}:{DB_PASSWORD}@{DB_HOST}"  # noqa
-                           f":{DB_PORT}/{DB_NAME}"
-                           )  # noqa
+SQLALCHEMY_DATABASE_URL = Settings.sql_alchemy_database_url
 
 
 async def cook_models():

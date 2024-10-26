@@ -1,10 +1,10 @@
-import os
 from redis.asyncio import Redis
+from config import Settings
 
 
 class AsyncRedisClient:
     def __init__(self):
-        self.url = os.getenv('REDIS_STORAGE')
+        self.url = Settings.redis_storage
         self.redis = Redis.from_url(self.url)
 
     async def set_value(self, key: str, value: str, expire: int = None):
