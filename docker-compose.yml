@@ -9,9 +9,9 @@ services:
       dockerfile: bot_service/Dockerfile
     volumes:
       - .:/app
-    depends_on:
-      - postgres
-      - redis
+#    depends_on:
+#      - postgres
+#      - redis
     environment:
       - PYTHONUNBUFFERED=1
     networks:
