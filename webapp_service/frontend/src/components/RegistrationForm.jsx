@@ -47,7 +47,9 @@ const RegistrationForm = ({setModal }) => {
 
   return (
     <>
+    
     <Form title="Форма заявления" onSubmit={(e) => e.preventDefault()}>
+    
       <Input
         type="text"
         placeholder="ФИО"

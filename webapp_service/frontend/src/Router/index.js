@@ -1,5 +1,4 @@
 import CodeVerificationPage from "../Pages/CodeVerificationPage";
-import HomePage from "../Pages/HomePage";
 import RegistrationPage from "../Pages/RegistrationPage";
 import SignInPage from "../Pages/SignInPage";
 

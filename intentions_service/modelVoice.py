@@ -47,6 +47,18 @@ class IntentRecognizer:
             self.X, self.y = self._prepare_data()
             self.model = self._train_model()
 
+    def retrain_model(self):
+        for file_path in [self.model_path, self.vectorizer_path, self.label_encoder_path]:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                print(f"{file_path} удален для перетренировки.")
+
+        self.data_samples = self._get_data_samples()
+        self.X, self.y = self._prepare_data()
+        
+        self.model = self._train_model()
+        print("Модель обучена и сохранена.")
+
     def _get_data_samples(self):
         return [
             {"text": "не работает", "intent": "problem"},

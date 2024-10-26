@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import './App.css';
-import HomePage from './Pages/HomePage';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
-import RegistrationPage from './Pages/RegistrationPage';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import {RoutesPath} from './Router/index'
 
 
