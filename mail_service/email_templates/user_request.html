@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запрос пользователя</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #990000;
+        }
+        .field-label {
+            color: #990000;
+            font-weight: bold;
+        }
+        .field-value {
+            padding: 8px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Детали запроса пользователя</h1>
+        
+        <p><span class="field-label">Номер контракта:</span></p>
+        <div class="field-value">{{ contract_number }}</div>
+
+        <p><span class="field-label">ФИО:</span></p>
+        <div class="field-value">{{ first_name }}, {{ last_name }}, {{ middle_name }}</div>
+
+        <p><span class="field-label">Телефон:</span></p>
+        <div class="field-value">{{ phone_number }}</div>
+
+        <p><span class="field-label">Описание:</span></p>
+        <div class="field-value">{{ description }}</div>
+    </div>
+</body>
+</html>
