@@ -3,8 +3,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    smtp_server: str = Field(..., env="SMTP_SERVER", default="smtp.gmail.com")
-    smtp_port: int = Field(..., env="SMTP_PORT", default=465)
+    smtp_server: str = Field(..., env="SMTP_SERVER")
+    smtp_port: int = Field(..., env="SMTP_PORT")
     smtp_user: EmailStr = Field(..., env="SMTP_USER")
     smtp_password: SecretStr = Field(..., env="SMTP_PASSWORD")
     use_tls: bool = Field(default=True)

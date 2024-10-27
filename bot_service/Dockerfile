@@ -6,7 +6,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY ./bot_service /app
 
-COPY ./intentions_service /app
+#COPY ./intentions_service /app
 
 #COPY ../shared /app/shared
 

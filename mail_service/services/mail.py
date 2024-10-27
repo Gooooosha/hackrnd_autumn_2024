@@ -1,11 +1,14 @@
+import os
 from pathlib import Path
 from jinja2 import Template
 from typing import Any, Dict
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from aiosmtplib import SMTP
-from mail_service.config import settings
 from shared.utils.enums.mail_types_enum import MailTypes
+
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class EmailService:
@@ -35,18 +38,18 @@ class EmailService:
                                                   context=context)
 
         message = MIMEMultipart()
-        message["From"] = settings.smtp_user
+        message["From"] = os.getenv("SMTP_USER")
         message["To"] = recipient
         message["Subject"] = subject
         message.attach(MIMEText(html_content, "html"))
 
-        smtp_client = SMTP(hostname=settings.smtp_server,
-                           port=settings.smtp_port,
-                           use_tls=settings.use_tls)
+        smtp_client = SMTP(hostname=os.getenv("SMTP_SERVER"),
+                           port=os.getenv("SMTP_PORT"),
+                           use_tls=True)
         try:
             async with smtp_client:
-                await smtp_client.login(settings.smtp_user,
-                                        settings.smtp_password.get_secret_value())  # noqa
+                await smtp_client.login(os.getenv("SMTP_USER"),
+                                        os.getenv("SMTP_PASSWORD"))  # noqa
                 await smtp_client.send_message(message)
                 return True
         except Exception as e:

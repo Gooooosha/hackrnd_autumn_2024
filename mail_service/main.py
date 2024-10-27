@@ -7,7 +7,7 @@ from shared.schemas.user_request import UserRequest
 async def main():
     email_service = EmailService()
     context = AuthCode(code="1234")
-    await email_service.send_mail(recipient="ups1deggwp@gmail.com",
+    await email_service.send_mail(recipient="lyhtyrageorgiu@gmail.com",
                                   subject="Вход в аккаунт",
                                   context=context.model_dump(),
                                   mail_type=MailTypes.AUTH_CODE)
@@ -19,7 +19,7 @@ async def main():
                                phone_number="+79901234795",
                                description="Изменился тариф")
 
-    await email_service.send_mail(recipient="ups1deggwp@gmail.com",
+    await email_service.send_mail(recipient="lyhtyrageorgiu@gmail.com",
                                   subject="Уведомление о запросе пользователя",
                                   context=user_request.model_dump(),
                                   mail_type=MailTypes.USER_REQUEST)

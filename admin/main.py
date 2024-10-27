@@ -6,7 +6,7 @@ from api.v1.routes import router
 from api.v1.view import router as views
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="./build/static"), name="static")
+#app.mount("/static", StaticFiles(directory="./build/static"), name="static")
 
 origins = [
     "*"
@@ -21,4 +21,4 @@ app.add_middleware(
 )
 
 app.include_router(router)
-app.include_router(views)
+#app.include_router(views)

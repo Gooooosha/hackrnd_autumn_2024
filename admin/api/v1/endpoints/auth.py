@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from shared.schemas.auth import Login
-from utils.auth_service import AuthService
+from admin.utils.auth_service import AuthService
 
 
 router = APIRouter(
